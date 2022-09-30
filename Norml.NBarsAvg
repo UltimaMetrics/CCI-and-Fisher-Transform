@@ -1,0 +1,5 @@
+inputs:Series(NumericSeries),nbar(NumericSimple);
+vars: lAverage(0);
+lAverage=average(Series,nbar);
+P1014.Normalization.NBarsAverage = (Series-lAverage)/laverage;
+
