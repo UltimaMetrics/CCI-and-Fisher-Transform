@@ -1,0 +1,53 @@
+vars: cciCriteriaP(100);
+vars: cciCriteriaM(-100);
+vars: nbar(10);
+vars: CCITrendStateLong(0),CCITrendStateShort(0);
+vars: NSMADState(false);
+
+
+CCITrendStateLong = P1014.CCITrendState(nbar,5,cciCriteriaP,cciCriteriaM);
+CCITrendStateShort = P1014.CCITrendState(nbar,7,cciCriteriaP,cciCriteriaM);
+NSMADState = P1014.NormSMADevState(80);
+vars: entryTimeController(false);
+entryTimeController = time>915 and time<1315;
+
+
+if marketposition=0 and entryTimeController and NSMADState[1]=false and NSMADState then
+	buy next bar at market;
+	
+if marketposition<=0 and entryTimeController and CCITrendStateLong=1 then
+	buy next bar at market;
+	
+if marketposition>=0 and entryTimeController and CCITrendStateShort=-1 then
+	sellshort  next bar at market;
+	
+
+{hard stop control}
+inputs:hardstopPcnt(3);
+vars: hardstopAmount(0);
+if marketposition<>0 then begin
+	hardstopAmount = entryprice(0)*0.01*hardstopPcnt*bigpointvalue;
+	setstoploss(hardstopAmount);
+end;
+
+
+	
+{Percent Trailing}	
+vars: maxOpenPositionProfit(0);
+if marketposition<>0 then maxOpenPositionProfit=maxlist(maxopenpositionprofit,openpositionprofit) else
+	maxOpenPositionProfit=0;
+
+vars: pt_trigger1(0),pt_loss_pcn1(80);
+vars: pt_trigger2(0),pt_loss_pcn2(30);
+vars: pt_trigger3(0),pt_loss_pcn3(20);
+
+if marketposition<>0 then begin
+	pt_trigger1 = entryprice(0)*0.01*bigpointvalue;
+	if maxOpenPositionProfit>pt_trigger1 then setpercenttrailing(pt_trigger1,pt_loss_pcn1);
+	pt_trigger2 = entryprice(0)*0.02*bigpointvalue;
+	if maxOpenPositionProfit>pt_trigger2 then setpercenttrailing(pt_trigger2,pt_loss_pcn2);
+	pt_trigger3 = entryprice(0)*0.03*bigpointvalue;
+	if maxOpenPositionProfit>pt_trigger3 then setpercenttrailing(pt_trigger3,pt_loss_pcn3);
+end;
+
+
