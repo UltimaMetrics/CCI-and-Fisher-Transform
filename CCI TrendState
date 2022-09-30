@@ -1,0 +1,12 @@
+inputs: nbar(NumericSimple),cBar(NumericSimple),CCICriteriaP(NumericSimple),CCICriteriaM(NumericSimple);
+
+vars: theCCI(0);
+
+theCCI = P1014.CCI.MD(typicalPrice,nbar);
+
+P1014.CCITrendState=0;
+
+if countif(theCCI>=CCICriteriaP,cBar) = cBar then
+	P1014.CCITrendState=1;
+	
+if countif(theCCI<=CCICriteriaM,cBar) = cBar then
