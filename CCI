@@ -1,0 +1,12 @@
+inputs: Len(numericsimple);                                                 
+
+variables: nbarAverage(0),nbarDev(0);
+	
+nbarAverage = Average(typicalPrice,Len);
+nBarDev = MeanDeviation(typicalPrice,len);
+
+if nBarDev = 0 then
+	P1014.CCI = 0
+else
+	P1014.CCI = (typicalPrice - nbarAverage)/(0.015*nBarDev);
+
