@@ -1,0 +1,7 @@
+inputs: Series(NumericSeries),Period(NumericSimple); 
+variables: EMA1( 0 ), EMA2( 0 );
+
+EMA1 = XAverage( Series, Period ) ; 
+EMA2 = XAverage( EMA1, Period ) ; 
+ZLagEMA = 2 * EMA1 - EMA2 ;
+
