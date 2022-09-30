@@ -1,0 +1,16 @@
+inputs: 
+	Series(NumericSeries), Len(numericsimple);                                                 
+
+variables: 	
+	var0( 0 ), 
+	var1( 0 ), 
+	var2( 0 ) ;
+
+var0 = Average(Series,Len) ;                                                  
+var1 = 0 ;
+for var2 = 0 to Len - 1 
+	begin
+	var1 = var1 + AbsValue( Series[var2] - var0 ) ;
+	end ;
+MeanDeviation = var1 / Len ;
+
