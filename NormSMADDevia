@@ -1,0 +1,16 @@
+inputs: nbar(NumericSimple);
+
+vars: factor(1);
+
+vars: mean(0),absDeviation(0),theDevation(0),MaxValue(0);
+
+mean = average(typicalPrice,nbar);
+
+theDevation = typicalPrice - mean;
+
+MaxValue = maxlist(highest(theDevation,nbar),absvalue(lowest(theDevation,nbar)));
+
+if MaxValue<>0 then
+	P1014.NormalizedSMADeviation = factor*(theDevation/MaxValue)
+else
+	P1014.NormalizedSMADeviation = 0;
