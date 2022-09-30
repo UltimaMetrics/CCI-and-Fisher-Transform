@@ -1,0 +1,8 @@
+inputs: nbar(NumericSimple);
+
+vars: mean(0),absDeviation(0);
+
+mean = average(typicalPrice,nbar);
+
+P1014.SimpleAverageDeviation = typicalPrice - mean;
+
