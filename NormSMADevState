@@ -1,0 +1,13 @@
+inputs: nbar(NumericSimple);
+
+vars: absDeviation(0);
+
+absDeviation = P1014.NormalizedSMADeviation(nbar);
+
+P1014.NormSMADevState=P1014.NormSMADevState[1];
+
+if absDeviation = 1 then
+	P1014.NormSMADevState=true;
+	
+if absDeviation = -1 then
+	P1014.NormSMADevState=false;
