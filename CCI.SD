@@ -1,0 +1,12 @@
+inputs: Series(numericSeries), Len(numericsimple);                                                 
+
+variables: nbarAverage(0),nbarDev(0);
+	
+nbarAverage = Average(Series,Len);
+nBarDev = stddev(Series,len);
+
+if nBarDev = 0 then
+	P1014.CCI.SD = 0
+else
+	P1014.CCI.SD = (Series - nbarAverage)/(0.015*nBarDev);
+
