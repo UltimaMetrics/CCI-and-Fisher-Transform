@@ -1,0 +1,2 @@
+inputs: Series(numericseries);
+P1014.Normalization.PreviousDayClose = (Series/closed(1)-1);
